@@ -1,45 +1,55 @@
-#  Projeto Integrador-back-end para um app/web de tarefas
-
-
-## 🚀 Tecnologias
-
-- Node.js
-- Express
-- SQLite
-- Prisma
-
-
-## 💻 Funcionalidades
+# Funcionalidades
 
 - Cadastro e login de usuários
-- Recuperação de senha por e-mail - Em Desenvolvimento
+- CRUD de usuarios
 - Criação, edição e exclusão de tarefas
-- Tarefas categorizadas (trabalho, pessoal, desejos)
-- Estatísticas de produtividade - Em desenvolvimento
+- Estatísticas de produtividade
+- Upload de foto de perfil
+- Autenticação JWT
+- API RESTful
 
-## ⚙️ Como usar
+_______________________
+## BACK
 
-### 1. Clone o repositório
+**Principais ferramentas e bibliotecas:**
+- Node.js
+- Express
+- Prisma ORM
+- SQLite
+- bcrypt
+- jsonwebtoken
+- dotenv
+- cors
+- nodemailer
+- multer
+- path
+- fs
 
-```bash
-git clone 'url'
-cd nome-do-projeto
+**Organização do projeto:**
+- Estrutura baseada no padrão MVC (Model-View-Controller) para separar regras de negócio, rotas e acesso a dados.
 
-### 2. Baixar as depedencias do package.json
+______________
+## MOBILE
 
-npm install 
+**Principais ferramentas e bibliotecas:**
+- React Native
+- Expo
+- @react-native-async-storage/async-storage
+- expo-image
+- expo-router
+- react-navigation
+- @expo/vector-icons
+- react-native-gesture-handler
+- Chart.js (para gráficos, se usado)
+- fetch API (requisições HTTP)
 
-### 3. resert o banco para testar o croud
+______________
+## FRONT (Web)
 
-npx prisma migrate reset
-
-### 4. salva e gere uma nova migração
-npx prisma migrate dev --name 
-
-
-### 5.inicie o servidor 
-
-node 'nome-do-arquivo-servidor'
-
-
-# TO DO PERSONALIZACAO DE TAREFA ATRASADA
+**Principais ferramentas e bibliotecas:**
+- HTML5, CSS3, JavaScript (Vanilla)
+- Font Awesome (ícones)
+- Chart.js (para gráficos)
+- JWT Decode (cdn)
+- LocalStorage (armazenamento local)
+- Fetch API (requisições HTTP)
