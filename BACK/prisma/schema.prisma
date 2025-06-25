@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String 
+  name        String
+  birthDate   DateTime
+  profilePic  String?  // Caminho para imagem de perfil
+  tasks       Task[]
+  createdAt   DateTime @default(now())
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  name        String
+  time        String   // Ex: "14:00"
+  date        DateTime // Data da tarefa
+  category    String   // Ex: trabalho, pessoal, desejo
+  completed   Boolean  @default(false)
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+}

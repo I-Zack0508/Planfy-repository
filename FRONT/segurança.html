@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segurança</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/response.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header" id="header">
+        <h1 class="logo">
+            <a href="index.html">PLANFY</a>
+        </h1>
+        <nav class="nav-header">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="tarefas.html">Tarefas</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars fa-lg"></i>
+        </div>
+
+        <div class="creation_noShow"><i class="fa-solid fa-plus fa-lg"></i></div>
+
+        <a href="/perfil.html">
+            <picture>
+                <img src="public/Perfil.jpg" class="perfil" alt="Perfil" id="header-profile-image">
+            </picture>
+        </a>
+
+    </header>
+
+    <div class="section" id="seguranca">
+        <h1>Segurança na Planfy</h1>
+        <p>Na Planfy, protegemos seus dados com seriedade. Utilizamos recursos modernos para garantir a segurança das
+            suas informações enquanto você organiza sua rotina com praticidade e confiança.</p>
+        <ul>
+            <li>Criptografia SSL para proteger seus dados durante a navegação</li>
+            <li>Servidores seguros e monitorados para armazenamento confiável</li>
+            <li>Verificação de autenticação e senhas fortes para acesso à conta</li>
+            <li>Proteção contra acessos indevidos e tentativas de invasão</li>
+            <li>Atualizações frequentes para manter a plataforma segura</li>
+        </ul>
+        <p>Estamos sempre trabalhando para que sua experiência com a Planfy seja segura, confiável e eficiente.</p>
+    </div>
+
+    <footer>
+        <a href="#header">
+            <h1 class="logo">PLANFY</h1>
+        </a>
+
+        <div class="pulblic">
+            <nav class="nav-footer">
+                <ul>
+                    <li><a href="termos.html">Termos</a></li>
+                    <li><a href="privacidade.html">Privacidade</a></li>
+                    <li><a href="segurança.html">Segurança</a></li>
+                </ul>
+            </nav>
+
+            <p>&copy; 2025 PLANFY - Todos os direitos reservados.</p>
+        </div>
+
+        <div class="social-app">
+            <i class="fa-brands fa-square-instagram fa-lg"></i>
+            <i class="fa-brands fa-square-x-twitter fa-lg"></i>
+            <i class="fa-brands fa-square-youtube fa-lg"></i>
+            <i class="fa-brands fa-square-facebook fa-lg"></i>
+        </div>
+    </footer>
+
+    <!-- Modal de Criação -->
+
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Nova Tarefa</h2>
+            <div class="modal-body">
+                <input type="text" id="task-text" placeholder="Adicione uma nova tarefa...">
+
+                <select id="task-category">
+                    <option value="diaria">Diária</option>
+                    <option value="semanal">Semanal</option>
+                    <option value="mensal">Mensal</option>
+                </select>
+
+                <div class="custom-dropdown">
+                    <input type="text" id="task-recurrence-display" readonly placeholder="Selecione os dias" />
+                    <div id="task-recurrence-options" class="dropdown-options">
+                        <label><input type="checkbox" value="all day"> Todos os dias</label>
+                        <label><input type="checkbox" value="Segunda"> Segunda</label>
+                        <label><input type="checkbox" value="Terça"> Terça</label>
+                        <label><input type="checkbox" value="Quarta"> Quarta</label>
+                        <label><input type="checkbox" value="Quinta"> Quinta</label>
+                        <label><input type="checkbox" value="Sexta"> Sexta</label>
+                        <label><input type="checkbox" value="Sábado"> Sábado</label>
+                        <label><input type="checkbox" value="Domingo"> Domingo</label>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="task-time"></label>
+                    <input type="time" id="task-time">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button id="save-task-btn" class="save-btn">Salvar</button>
+                <button id="cancel-task-btn" class="cancel-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .creation_noShow {
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        /* Global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        html,
+        body {
+            overflow-x: hidden !important;
+            background-color: white;
+        }
+
+        /* Cabeçalho */
+        header {
+            width: 100%;
+            height: 100px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            cursor: context-menu;
+        }
+
+        /* Logo */
+        .logo {
+            width: 200px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #F8F8FF;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 2rem;
+            color: #6381A8;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+
+        /* Menu de navegação */
+        header .nav-header {
+            margin-left: 245px;
+        }
+
+        header ul {
+            color: #6381A8;
+            display: flex;
+            gap: 50px;
+            list-style-type: none;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        header ul li {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        header ul a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease-in-out;
+        }
+
+        header ul li:hover {
+            transform: scale(1.1);
+        }
+
+        header ul a:hover {
+            color: #445d7e;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Botão de criação */
+        .creation {
+            width: 50px;
+            height: 50px;
+            background-color: #6381A8;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        .creation:hover {
+            background-color: #445d7e;
+            transform: scale(1.1);
+        }
+
+        .creation i {
+            color: #F8F8FF;
+            font-size: 22px;
+        }
+
+        /* Imagem do perfil */
+        .perfil {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #c0c7d0;
+            cursor: pointer;
+        }
+
+        /* Card Segurança */
+        #seguranca {
+            background-color: #f5f9fc;
+            border-left: 5px solid #445d7e;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 130px 50px;
+        }
+
+        #seguranca h1 {
+            font-size: 1.8rem;
+            color: #2d3f55;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        #seguranca p {
+            font-size: 1.3rem;
+            color: #444;
+            line-height: 1.6;
+            text-indent: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        #seguranca ul {
+            list-style-type: disc;
+            padding-left: 2rem;
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        #seguranca li {
+            margin-bottom: 0.6rem;
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.5;
+            text-indent: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            width: 100%;
+            height: 125px;
+            background-color: #6381A8;
+            color: #F3F3F3;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+
+        /* Public */
+        .pulblic {
+            text-align: center;
+        }
+
+        /* Logo */
+        footer h1.logo {
+            width: 200px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #445d7e;
+            color: #F8F8FF;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 2rem;
+        }
+
+        /* Navigation */
+        .nav-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .nav-footer ul {
+            display: flex;
+            gap: 50px;
+            list-style-type: none;
+        }
+
+        .nav-footer li {
+            text-decoration: none;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        footer .nav-footer a {
+            color: #F3F3F3;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-footer li:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-footer a:hover {
+            color: #c2d1e6;
+        }
+
+        /* Social Apps */
+        .social-app {
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+            align-items: center;
+        }
+
+        .social-app i {
+            font-size: 40px;
+            color: #F3F3F3;
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .social-app i:hover {
+            color: #c2d1e6;
+            transform: scale(1.1);
+        }
+
+        /* Footer text */
+        footer p {
+            cursor: context-menu;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        #modal-title {
+            font-size: 24px;
+            color: #6381A8;
+            font-weight: 700;
+            margin-bottom: 20px;
+            cursor: context-menu;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        #task-text {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #task-category {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .custom-dropdown {
+            position: relative;
+        }
+
+        #task-recurrence-display {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            background-color: #F8F8FF;
+        }
+
+        #task-recurrence-options {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        #task-recurrence-display:focus+#task-recurrence-options,
+        #task-recurrence-options:hover {
+            display: block;
+            text-align: left;
+        }
+
+        #task-recurrence-options label {
+            display: block;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #task-recurrence-options input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        #task-recurrence-options input {
+            margin-right: 10px;
+        }
+
+        /* Rodapé do Modal */
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.4s ease, transform 0.4s ease;
+        }
+
+        .save-btn {
+            background-color: #6381A8;
+            color: #F8F8FF;
+        }
+
+        .save-btn:hover {
+            background-color: #445d7e;
+            transform: scale(1.03);
+        }
+
+        .cancel-btn {
+            background-color: #d3d3d3;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background-color: #b4b4b4;
+            transform: scale(1.03);
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+
+        .disabled-checkbox {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        #task-time {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #6381A8;
+            background-color: #F8F8FF;
+            color: #445d7e;
+            transition: border-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        #task-time:focus {
+            border-color: #6381A8;
+            outline: none;
+        }
+
+        /* Responsividade Footer entre 768px e 420px */
+        @media (max-width: 768px) and (min-width: 420px) {
+            footer {
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                padding: 15px 10px;
+                height: auto;
+                gap: 5px;
+                text-align: center;
+            }
+
+            footer h1.logo {
+                width: 150px;
+                height: auto;
+                font-size: 1.5rem;
+                padding: 10px;
+                margin: 0 auto;
+            }
+
+            .pulblic {
+                flex: 1 1 100%;
+                margin-bottom: 10px;
+            }
+
+            .pulblic p {
+                font-size: 14px;
+                margin: 5px 0;
+            }
+
+            .nav-footer {
+                flex: 1 1 100%;
+                padding: 10px 0;
+            }
+
+            .nav-footer ul {
+                flex-direction: row;
+                gap: 30px;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .nav-footer a {
+                font-size: 15px;
+            }
+
+            .social-app {
+                flex: 1 1 100%;
+                justify-content: center;
+                gap: 12px;
+                margin-bottom: 10px;
+            }
+
+            .social-app i {
+                font-size: 32px;
+            }
+        }
+
+        /* Responsividade Header para Tablet */
+        @media (max-width: 1094px) {
+            header {
+                padding: 0 20px;
+                display: flex;
+                gap: 15px;
+            }
+
+            .logo {
+                width: 150px;
+                height: 40px;
+                font-size: 1.8rem;
+            }
+
+            header .nav-header {
+                margin-left: 75px;
+            }
+
+            .creation,
+            .perfil {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Responsividade Header para Mobile */
+        @media (max-width: 768px) {
+            header {
+                padding: 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                width: 125px;
+                height: 35px;
+                font-size: 1.5rem;
+            }
+
+            .nav-header {
+                display: none;
+                position: absolute;
+                top: 85px;
+                left: 20%;
+                background-color: white;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+                text-align: center;
+                border-radius: 10px;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .nav-header.active {
+                display: block;
+                transform: translateX(0);
+            }
+
+            .nav-header ul {
+                padding: 15px;
+                gap: 20px;
+            }
+
+            .nav-header ul li {
+                font-size: 1rem;
+                margin: 0;
+                width: 100%;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 20px;
+                color: #6381A8;
+                cursor: pointer;
+            }
+
+            .perfil {
+                margin-top: 5px;
+            }
+
+            .perfil,
+            .creation {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 1094px) and (min-width: 768px) {
+            #seguranca {
+                margin: 110px 30px;
+                padding: 20px;
+            }
+
+            #seguranca h1 {
+                font-size: 1.6rem;
+                margin-bottom: 15px;
+            }
+
+            #seguranca p {
+                font-size: 1.2rem;
+                text-indent: 1.2rem;
+            }
+
+            #seguranca ul {
+                padding-left: 1.5rem;
+            }
+
+            #seguranca li {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Para telas menores que 768px */
+        @media (max-width: 767px) {
+            #seguranca {
+                margin: 70px 20px;
+                padding: 15px;
+            }
+
+            #seguranca h1 {
+                font-size: 1.4rem;
+                margin-bottom: 10px;
+            }
+
+            #seguranca p {
+                font-size: 1.1rem;
+                text-indent: 1rem;
+            }
+
+            #seguranca ul {
+                padding-left: 1.2rem;
+            }
+
+            #seguranca li {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            footer {
+                flex-direction: column;
+                height: auto;
+                padding: 20px 10px;
+                text-align: center;
+                gap: 20px;
+            }
+
+            footer h1.logo {
+                width: 100%;
+                height: auto;
+                font-size: 1.6rem;
+                padding: 8px;
+            }
+
+            .pulblic {
+                width: 100%;
+            }
+
+            .nav-footer {
+                padding: 10px 0;
+            }
+
+            .nav-footer ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-footer a {
+                font-size: 16px;
+            }
+
+            .social-app {
+                display: none;
+            }
+
+            .social-app i {
+                font-size: 30px;
+            }
+
+            footer p {
+                font-size: 14px;
+                margin-top: 10px;
+            }
+        }
+    </style>
+
+    <script>
+        // Abertura de Menu
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navHeader = document.querySelector('.nav-header');
+
+
+        function toggleMenu() {
+            navHeader.classList.toggle('active');
+        }
+
+        menuToggle.onclick = toggleMenu;
+
+        // Modal
+        document.addEventListener("DOMContentLoaded", function () {
+            const taskModal = document.getElementById("task-modal");
+            const saveTaskBtn = document.getElementById("save-task-btn");
+            const cancelTaskBtn = document.getElementById("cancel-task-btn");
+            const creationButton = document.querySelector(".creation");
+            const taskText = document.getElementById("task-text");
+            const taskCategory = document.getElementById("task-category");
+            const recurrenceDisplay = document.getElementById("task-recurrence-display");
+            const recurrenceCheckboxes = document.querySelectorAll("#task-recurrence-options input[type='checkbox']");
+            const taskTime = document.getElementById("task-time");
+
+            let isPageReloaded = false;
+
+            // Abrir modal ao clicar no botão de criação
+            creationButton.addEventListener("click", function () {
+                document.getElementById("modal-title").textContent = "Nova Tarefa";
+                taskModal.style.display = "flex";
+            });
+
+            // Fechar modal ao clicar no botão de cancelar
+            cancelTaskBtn.addEventListener("click", function () {
+                taskModal.style.display = "none";
+            });
+
+            // Bloquear checkboxes de dias da semana se for "Diária"
+            function updateCheckboxes() {
+                const isDiaria = taskCategory.value === "diaria";
+
+                recurrenceCheckboxes.forEach(checkbox => {
+                    checkbox.disabled = isDiaria;
+                    if (isDiaria) {
+                        checkbox.checked = false;
+                    }
+                });
+
+                if (recurrenceDisplay) {
+                    recurrenceDisplay.value = isDiaria ? "" : "Selecione os dias";
+                }
+            }
+
+            updateCheckboxes();
+
+            taskCategory.addEventListener("change", updateCheckboxes);
+
+            // Validação antes de salvar a tarefa
+            saveTaskBtn.addEventListener("click", function () {
+                const taskValue = taskText.value.trim();
+                const selectedCheckboxes = Array.from(recurrenceCheckboxes).filter(checkbox => checkbox.checked);
+                const isDiaria = taskCategory.value === "diaria";
+                const taskTimeValue = taskTime.value.trim();
+
+                // Verifica se o campo de texto está vazio
+                if (!taskValue) {
+                    alert("Por favor, preencha o nome da tarefa.");
+                    return;
+                }
+
+                // Verifica se o seletor de hora está vazio
+                if (!taskTimeValue) {
+                    alert("Por favor, selecione uma hora.");
+                    return;
+                }
+
+                // Se não for "Diária", verificar se ao menos um dia foi selecionado
+                if (!isDiaria && selectedCheckboxes.length === 0) {
+                    alert("Por favor, selecione pelo menos um dia da semana.");
+                    return;
+                }
+
+                // Se todas as verificações passaram
+                alert(`Tarefa criada com sucesso!`);
+
+                taskModal.style.display = "none";
+
+                // Limpar os campos após salvar
+                taskText.value = "";
+                taskCategory.value = "semanal";
+                recurrenceCheckboxes.forEach(checkbox => (checkbox.checked = false));
+                taskTime.value = "";
+
+                if (recurrenceDisplay) {
+                    recurrenceDisplay.value = "Selecione os dias";
+                }
+
+                if (!isPageReloaded) {
+                    isPageReloaded = true;
+                    location.reload();
+                }
+
+            });
+        });
+
+        // Sistema d ancoragem
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    smoothScrollTo(targetElement);
+                }
+            });
+        });
+
+        function smoothScrollTo(element) {
+            const startPosition = window.scrollY;
+            const targetPosition = element.offsetTop;
+            const distance = targetPosition - startPosition;
+            const duration = 200;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                window.scrollTo(0, startPosition + distance * progress);
+
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                }
+            }
+
+            requestAnimationFrame(animation);
+        }
+    </script>
+    <script src="Js/notAllowed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="Js/photoLoad.js"></script>
+</body>
+
+</html>

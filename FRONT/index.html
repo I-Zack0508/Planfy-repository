@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlanFy</title>
+    <!-- Caminhos relativos corrigidos -->
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/response.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header" id="header">
+        <h1 class="logo">
+            <a href="./index.html">PLANFY</a>
+        </h1>
+        <nav class="nav-header">
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./sobre.html">Sobre</a></li>
+                <li><a href="./tarefas.html">Tarefas</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" id="menu-toggle">
+            <i class="fa-solid fa-bars fa-lg"></i>
+        </div>
+
+        <div class="creation creation_noShow"><i class="fa-solid fa-plus fa-lg"></i></div>
+
+        <a href="./perfil.html">
+            <picture>
+                <img src="./public/Perfil.jpg" class="perfil" alt="Perfil" id="header-profile-image">
+            </picture>
+        </a>
+
+    </header>
+
+    <!-- Banner de boas-vindas -->
+    <div class="container">
+        <div class="planfy-logo" id="banner-ola"></div>
+    </div>
+
+    <div>
+        <picture class="border01"><img src="./public/Borda01.png"></picture>
+        <picture class="border02"><img src="./public/Borda02.png"></picture>
+        <picture class="border03"><img src="./public/Borda03.png"></picture>
+        <picture class="border04"><img src="./public/Borda04.png"></picture>
+
+        
+
+        <main class="content">
+            <section class="box-card">
+                <div class="card">
+                    <h1>FÁCIL UTILIZAÇÃO</h1>
+                    <p>Nosso sistema oferece uma interface intuitiva, tornando a criação e gestão de tarefas mais fácil
+                        e rápida, sem complicação.</p>
+                </div>
+
+                <div class="card">
+                    <h1>ORGANIZAÇÃO E EFICIÊNCIA</h1>
+                    <p>Organize suas tarefas de maneira inteligente, com opções de repetições diárias, semanais ou
+                        mensais, para garantir produtividade.</p>
+                </div>
+            </section>
+
+            <section class="column">
+                <picture><img src="./public/setaUp.png"></picture>
+                <picture><img src="./public/SetaDown.png"></picture>
+            </section>
+
+            <section>
+                <div class="card">
+                    <h1>LEMBRETES PERSONALIZADOS</h1>
+                    <p>Receba lembretes automáticos para garantir que suas tarefas sejam cumpridas dentro do prazo, sem
+                        esquecer nenhum detalhe importante.</p>
+                </div>
+            </section>
+        </main>
+
+        <div class="box-nav">
+
+            <div class="box-text">
+                <h1>Transforme Sua Produtividade com o Planfy</h1>
+                <p>Planfy é a mais nova plataforma inteligente de gestão de tarefas, projetada para otimizar sua rotina
+                    diária.
+                    Com ela, você pode criar lembretes personalizados, acompanhar o progresso de suas atividades e obter
+                    insights claros sobre suas conquistas e desafios. Ao contabilizar seus resultados, o Planfy oferece
+                    uma visão precisa das tarefas realizadas com sucesso e das pendentes, ajudando você a manter o foco
+                    e a produtividade.</p>
+            </div>
+
+            <picture><img src="./public/ilustracao01.png"></picture>
+
+        </div>
+    </div>
+
+    <footer>
+        <a href="#header">
+            <h1 class="logo">PLANFY</h1>
+        </a>
+
+        <div class="pulblic">
+            <nav class="nav-footer">
+                <ul>
+                    <li><a href="termos.html">Termos</a></li>
+                    <li><a href="privacidade.html">Privacidade</a></li>
+                    <li><a href="segurança.html">Segurança</a></li>
+                </ul>
+            </nav>
+
+            <p>&copy; 2025 PLANFY - Todos os direitos reservados.</p>
+        </div>
+
+        <div class="social-app">
+            <i class="fa-brands fa-square-instagram fa-lg"></i>
+            <i class="fa-brands fa-square-x-twitter fa-lg"></i>
+            <i class="fa-brands fa-square-youtube fa-lg"></i>
+            <i class="fa-brands fa-square-facebook fa-lg"></i>
+        </div>
+    </footer>
+
+    <script src="Js/notAllowed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    
+    <style>
+        .container{
+            background-image: url('./public/banner.png');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+
+<script src="Js/Welcome.js"></script>
+<script src="Js/photoLoad.js"></script>
+<script src="Js/Header.js"></script>
+
+<!-- SCRIPTS NO FINAL DO BODY -->
+<script>
+    // Menu hamburguer responsivo
+    document.addEventListener('DOMContentLoaded', function () {
+        // Hambúrguer
+        const menuToggle = document.getElementById('menu-toggle');
+        const navHeader = document.querySelector('.nav-header');
+        if (menuToggle && navHeader) {
+            menuToggle.addEventListener('click', function () {
+                navHeader.classList.toggle('active');
+            });
+        }
+
+        // Mensagem de boas-vindas
+        const userStr = localStorage.getItem('user');
+        if (userStr) {
+            try {
+                const user = JSON.parse(userStr);
+                if (user.nome) {
+                    const firstName = user.nome.split(' ')[0];
+                    const banner = document.getElementById('banner-ola');
+                    if (banner) {
+                        banner.textContent = `Olá ${firstName}`;
+                    }
+                }
+                // Foto de perfil dinâmica
+                if (user.profilePic) {
+                    const img = document.getElementById('header-profile-image');
+                    if (img) {
+                        img.src = user.profilePic.startsWith('http')
+                            ? user.profilePic
+                            : `http://localhost:3000${user.profilePic}`;
+                    }
+                }
+            } catch (e) {
+                // Se der erro, não faz nada
+            }
+        }
+    });
+</script>
+
+<!-- CSS mínimo para menu responsivo (adicione em <style> ou no seu CSS externo) -->
+<style>
+@media (max-width: 768px) {
+    .nav-header {
+        display: none;
+    }
+    .nav-header.active {
+        display: block;
+    }
+    .menu-toggle {
+        display: block;
+    }
+}
+@media (min-width: 769px) {
+    .nav-header {
+        display: block;
+    }
+    .menu-toggle {
+        display: none;
+    }
+}
+</style>
+</body>
+</html>

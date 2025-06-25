@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <header class="header" id="header">
+        <h1 class="logo">
+            <a href="index.html">PLANFY</a>
+        </h1>
+        <nav class="nav-header">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="tarefas.html">Tarefas</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" id="menu-toggle">
+            <i class="fa-solid fa-bars fa-lg"></i>
+        </div>
+        <div class="creation_noShow"><i class="fa-solid fa-plus fa-lg"></i></div>
+
+        <a href="perfil.html">
+            <picture>
+                <img src="public/Perfil.jpg" class="perfil" alt="Perfil" id="header-profile-image">
+            </picture>
+        </a>
+
+    </header>
+
+    <div class="container">
+
+        <div class="container-user">
+            <div class="container-profile">
+                <div class="profile">
+                    <img class="img-user" src="public/Perfil.jpg" id="profile-image">
+
+                    <button class="edit-image-button" id="edit-button" title="Editar imagem de perfil">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <i class="fa-solid fa-bookmark fa-2xl"></i>
+
+                    <input type="file" id="image-input" accept="image/*" style="display: none;">
+                </div>
+
+                <h1 class="name-user"> </h1>
+            </div>
+        </div>
+
+        <main class="cards">
+            <section class="user-info">
+                <h2>Informações do Usuário</h2>
+                <div class="info-block">
+                    <h3 class="h3editForm">Nome:</h3>
+                    <p class="name" id="name"></p>
+                    <button class="edition small-btn" id="edit-name-btn">Editar Nome</button>
+                </div>
+                <div class="info-block">
+                    <h3 class="h3editForm">Email:</h3>
+                    <p class="email" id="email"></p>
+                    <button class="edition small-btn" id="edit-email-btn">Editar Email</button>
+                </div>
+                <div class="info-block">
+                    <h3 class="h3editForm">Desde:</h3>
+                    <p class="date" id="date">--/--/----</p>
+                </div>
+                <div class="info-block">
+                    <h3 class="h3editForm">Senha:</h3>
+                    <p class="password" id="password"></p>
+                    <button class="edition small-btn" id="edit-password-btn">Editar Senha</button>
+                </div>
+                <div class="buttonsEditFinal">
+                    <button class="edition small-btn" id="delete-account-btn" style="background:#ff0026;">Excluir Conta</button>
+                    <button class="logOut small-btn">Sair da conta</button>
+                </div>
+            </section>
+
+            <section class="user-history">
+                <canvas id="taskStatsChart" width="400" height="400"></canvas>
+            </section>
+        </main>
+
+    </div>
+
+    <footer>
+        <a href="#header">
+            <h1 class="logo">PLANFY</h1>
+        </a>
+
+        <div class="pulblic">
+            <nav class="nav-footer">
+                <ul>
+                    <li><a href="termos.html">Termos</a></li>
+                    <li><a href="privacidade.html">Privacidade</a></li>
+                    <li><a href="segurança.html">Segurança</a></li>
+                </ul>
+            </nav>
+
+            <p>&copy; 2025 PLANFY - Todos os direitos reservados.</p>
+        </div>
+
+        <div class="social-app">
+            <i class="fa-brands fa-square-instagram fa-lg"></i>
+            <i class="fa-brands fa-square-x-twitter fa-lg"></i>
+            <i class="fa-brands fa-square-youtube fa-lg"></i>
+            <i class="fa-brands fa-square-facebook fa-lg"></i>
+        </div>
+    </footer>
+
+    
+
+    <!-- Modal de Criação -->
+
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Nova Tarefa</h2>
+            <div class="modal-body">
+                <input type="text" id="task-text" placeholder="Adicione uma nova tarefa...">
+
+                <select id="task-category">
+                    <option value="diaria">Diária</option>
+                    <option value="semanal">Semanal</option>
+                    <option value="mensal">Mensal</option>
+                </select>
+
+                <div class="custom-dropdown">
+                    <input type="text" id="task-recurrence-display" readonly placeholder="Selecione os dias" />
+                    <div id="task-recurrence-options" class="dropdown-options">
+                        <label><input type="checkbox" value="all day"> Todos os dias</label>
+                        <label><input type="checkbox" value="Segunda"> Segunda</label>
+                        <label><input type="checkbox" value="Terça"> Terça</label>
+                        <label><input type="checkbox" value="Quarta"> Quarta</label>
+                        <label><input type="checkbox" value="Quinta"> Quinta</label>
+                        <label><input type="checkbox" value="Sexta"> Sexta</label>
+                        <label><input type="checkbox" value="Sábado"> Sábado</label>
+                        <label><input type="checkbox" value="Domingo"> Domingo</label>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="task-time"></label>
+                    <input type="time" id="task-time">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button id="save-task-btn" class="save-btn">Salvar</button>
+                <button id="cancel-task-btn" class="cancel-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal editar nome -->
+    <div id="modal-edit-name" class="modal">
+      <div class="modal-content">
+        <h2>Editar Nome</h2>
+        <input type="text" id="input-edit-name" placeholder="Novo nome">
+        <input type="password" id="input-edit-name-password" placeholder="Senha atual">
+        <div class="modal-footer">
+          <button id="save-edit-name" class="save-btn">Salvar</button>
+          <button class="cancel-btn" onclick="closeModal('modal-edit-name')">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal editar email -->
+    <div id="modal-edit-email" class="modal">
+      <div class="modal-content">
+        <h2>Editar Email</h2>
+        <input type="email" id="input-edit-email" placeholder="Novo email">
+        <input type="password" id="input-edit-email-password" placeholder="Senha atual">
+        <div class="modal-footer">
+          <button id="save-edit-email" class="save-btn">Salvar</button>
+          <button class="cancel-btn" onclick="closeModal('modal-edit-email')">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal editar senha -->
+    <div id="modal-edit-password" class="modal">
+      <div class="modal-content">
+        <h2>Editar Senha</h2>
+        <input type="password" id="input-current-password" placeholder="Senha atual">
+        <input type="password" id="input-new-password" placeholder="Nova senha">
+        <div class="modal-footer">
+          <button id="save-edit-password" class="save-btn">Salvar</button>
+          <button class="cancel-btn" onclick="closeModal('modal-edit-password')">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal excluir conta -->
+    <div id="modal-delete-account" class="modal">
+      <div class="modal-content">
+        <h2>Excluir Conta</h2>
+        <input type="password" id="input-delete-password1" placeholder="Senha">
+        <input type="password" id="input-delete-password2" placeholder="Confirme a senha">
+        <div class="modal-footer">
+          <button id="confirm-delete-account" class="save-btn" style="background:#ff0026;">Excluir</button>
+          <button class="cancel-btn" onclick="closeModal('modal-delete-account')">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+        .creation_noShow {
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        /* Global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* ou center se quiser centralizar verticalmente também */
+            background-color: #f4f4f4;
+            overflow-x: hidden !important;
+        }
+
+        /* Cabeçalho */
+        header {
+            width: 100%;
+            height: 100px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            cursor: context-menu;
+        }
+
+        /* Logo */
+        .logo {
+            width: 200px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #F8F8FF;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 2rem;
+            color: #6381A8;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+
+        /* Menu de navegação */
+        header .nav-header {
+            margin-left: 245px;
+        }
+
+        header ul {
+            color: #6381A8;
+            display: flex;
+            gap: 50px;
+            list-style-type: none;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        header ul li {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        header ul a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease-in-out;
+        }
+
+        header ul li:hover {
+            transform: scale(1.1);
+        }
+
+        header ul a:hover {
+            color: #445d7e;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Botão de criação */
+        .creation {
+            width: 50px;
+            height: 50px;
+            background-color: #6381A8;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        .creation:hover {
+            background-color: #445d7e;
+            transform: scale(1.1);
+        }
+
+        .creation i {
+            color: #F8F8FF;
+            font-size: 22px;
+        }
+
+        /* Imagem do perfil */
+        .perfil {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #c0c7d0;
+            cursor: pointer;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            margin: 100px auto;
+            padding: 50px 50px 100px 50px !important;
+            box-shadow: 0 0px 12px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centraliza todo o conteúdo */
+        }
+
+        /* Seção de Perfil do Usuário */
+        .container-profile {
+            display: flex;
+            gap: 100px;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .profile {
+            position: relative;
+            width: 90px;
+            height: 90px;
+        }
+
+        .img-user {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #c0c7d0;
+            position: relative;
+            z-index: 2;
+            cursor: context-menu;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile .fa-bookmark {
+            position: absolute;
+            top: 100px;
+            left: -10px;
+            font-size: 145px;
+            color: #6381A8;
+            z-index: 1;
+        }
+
+        .name-user {
+            font-size: 36px;
+            font-weight: 700;
+            color: #445d7e;
+        }
+
+
+        .logOut {
+            width: auto;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff0026;
+            color: #F8F8FF;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .logOut:hover {
+            transform: scale(1.05);
+        }
+
+
+
+        /* Seção de Cards */
+        .cards {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 32px;           /* Espaço menor entre os cards */
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        /* Card de Informações do Usuário */
+        .user-info {
+            width: 100%;
+            max-width: 700px;
+            min-width: 260px;
+            min-height: 800px;   /* aumenta a altura mínima do card */
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 0px 12px 4px rgba(0, 0, 0, 0.08);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            margin: 0 auto 30px auto;
+            height: auto;
+            overflow: visible;
+            align-items: flex-start; /* Alinha todo o conteúdo à esquerda */
+        }
+
+        /* Centraliza os títulos e blocos internos */
+        .user-info h2 {
+            text-align: center;
+            width: 100%;
+        }
+        .info-block {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alinha os blocos de dados à esquerda */
+        }
+
+        /* Responsividade: em telas menores, volta para coluna */
+        @media (max-width: 900px) {
+            .cards {
+                flex-direction: column;
+                align-items: center;
+                gap: 24px;
+                margin-top: 30px;
+            }
+            .user-info {
+                min-height: 400px;
+                max-width: 100%;
+                width: 100%;
+                padding: 20px 8px;
+            }
+        }
+
+        .user-info,
+        .user-history {
+            flex: 1 1 300px;
+            max-width: 600px;
+        }
+
+        /* Card de Informações do Usuário */
+        .user-info {
+            width: 100%;
+            max-width: 700px;
+            min-width: 260px;
+            min-height: 800px;   /* aumenta a altura mínima do card */
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 0px 12px 4px rgba(0, 0, 0, 0.08);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            margin: 0 auto 30px auto;
+            height: auto;
+            overflow: visible;
+            align-items: flex-start; /* Alinha todo o conteúdo à esquerda */
+        }
+
+        /* Centraliza os títulos e blocos internos */
+        .user-info h2 {
+            text-align: center;
+            width: 100%;
+        }
+        .info-block {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alinha os blocos de dados à esquerda */
+        }
+
+        /* Card de Histórico do Usuário */
+        .user-history {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .user-history h2 {
+            font-size: 24px;
+            color: #6381A8;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .user-history h3 {
+            font-size: 20px;
+            color: #556c92;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .user-history p {
+            max-width: 300px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .user-info h2,
+        .user-history h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #445d7e;
+            margin-bottom: 10px;
+        }
+
+        .user-info h3 {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Botão de edição*/
+
+        .buttonsEdit {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .button {
+            justify-content: center;
+            margin: 18px;
+            display: flex;
+        }
+
+        .edition {
+            width: auto;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #445d7e;
+            color: #F8F8FF;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .edition:hover {
+            transform: scale(1.05);
+        }
+
+        .edit-image-button {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #445d7e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 6px;
+            cursor: pointer;
+            z-index: 3;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+
+        .edit-image-button i {
+            font-size: 12px;
+        }
+
+        .edit-image-button:hover {
+            background-color: #556c92;
+        }
+
+        /* Footer */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            width: 100%;
+            height: 125px;
+            background-color: #6381A8;
+            color: #F3F3F3;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+
+        /* Public */
+        .pulblic {
+            text-align: center;
+        }
+
+        /* Logo */
+        footer h1.logo {
+            width: 200px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #445d7e;
+            color: #F8F8FF;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 2rem;
+        }
+
+        /* Navigation */
+        .nav-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .nav-footer ul {
+            display: flex;
+            gap: 50px;
+            list-style-type: none;
+        }
+
+        .nav-footer li {
+            text-decoration: none;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        footer .nav-footer a {
+            color: #F3F3F3;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-footer li:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-footer a:hover {
+            color: #c2d1e6;
+        }
+
+        /* Social Apps */
+        .social-app {
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+            align-items: center;
+        }
+
+        .social-app i {
+            font-size: 40px;
+            color: #F3F3F3;
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .social-app i:hover {
+            color: #c2d1e6;
+            transform: scale(1.1);
+        }
+
+        /* Footer text */
+        footer p {
+            cursor: context-menu;
+        }
+
+        /* Modal de edição */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        /* Modal de criaçaõ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Conteúdo do Modal */
+        .modal-content {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        /* Título do Modal */
+        #modal-title {
+            font-size: 24px;
+            color: #6381A8;
+            font-weight: 700;
+            margin-bottom: 20px;
+            cursor: context-menu;
+        }
+
+        /* Body do Modal */
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* Campo de texto */
+        #task-text {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Select de Categoria */
+        #task-category {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* Dropdown de Recorrência */
+        .custom-dropdown {
+            position: relative;
+        }
+
+        #task-recurrence-display {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            background-color: #F8F8FF;
+        }
+
+        #task-recurrence-options {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        #task-recurrence-display:focus+#task-recurrence-options,
+        #task-recurrence-options:hover {
+            display: block;
+            text-align: left;
+        }
+
+        #task-recurrence-options label {
+            display: block;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #task-recurrence-options input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        #task-recurrence-options input {
+            margin-right: 10px;
+        }
+
+        /* Rodapé do Modal */
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.4s ease, transform 0.4s ease;
+        }
+
+        /* Estilo botão salvar */
+        .save-btn {
+            background-color: #6381A8;
+            color: #F8F8FF;
+        }
+
+        .save-btn:hover {
+            background-color: #445d7e;
+            transform: scale(1.03);
+        }
+
+        /* Estilo botão cancelar */
+        .cancel-btn {
+            background-color: #ff0026 !important;
+            color: #fff !important;
+        }
+
+        .cancel-btn:hover {
+            background-color: #c2001a !important;
+            color: #fff !important;
+            transform: scale(1.03);
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Desqualificação do diaria */
+        .disabled-checkbox {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Seletor de Horas*/
+        #task-time {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #6381A8;
+            background-color: #F8F8FF;
+            color: #445d7e;
+            transition: border-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        #task-time:focus {
+            border-color: #6381A8;
+            outline: none;
+        }
+
+        /* Responsividade Header para Mobile */
+        @media (max-width: 768px) {
+            header {
+                padding: 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                width: 125px;
+                height: 35px;
+                font-size: 1.5rem;
+            }
+
+            .nav-header {
+                display: none;
+                position: absolute;
+                top: 85px;
+                left: 20%;
+                background-color: white;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+                text-align: center;
+                border-radius: 10px;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .nav-header.active {
+                display: block;
+                transform: translateX(0);
+            }
+
+            .nav-header ul {
+                padding: 15px;
+                gap: 20px;
+            }
+
+            .nav-header ul li {
+                font-size: 1rem;
+                margin: 0;
+                width: 100%;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 20px;
+                color: #6381A8;
+                cursor: pointer;
+            }
+
+            .perfil {
+                margin-top: 5px;
+            }
+
+            .perfil,
+            .creation {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Responsividade Container para 768px*/
+        @media (min-width: 768px) {
+            .container {
+                width: auto;
+                height: auto;
+                padding: 40px;
+                margin: 100px 50px;
+            }
+
+            .container-profile {
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+                gap: 40px;
+                text-align: left;
+            }
+
+            .cards {
+                justify-content: space-around;
+            }
+
+            .name-user {
+                font-size: 32px;
+            }
+
+            .user-info,
+            .user-history {
+                max-width: 400px;
+                height: 500px;
+            }
+
+            .edition {
+                width: auto;
+            }
+        }
+
+        /* Responsividade Container para 768px*/
+        @media (max-width: 768px) {
+            .container {
+                width: auto;
+                height: auto;
+                padding: 40px;
+                margin: 100px 50px;
+            }
+
+            .container-profile {
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+                gap: 40px;
+                text-align: left;
+            }
+
+            .name-user {
+                font-size: 32px;
+            }
+
+            .user-info,
+            .user-history {
+                max-width: 400px;
+                height: 500px;
+            }
+
+            .edition {
+                width: auto;
+            }
+        }
+
+        @media (max-width: 420px) {
+            footer {
+                flex-direction: column;
+                height: auto;
+                padding: 20px 10px;
+                text-align: center;
+                gap: 20px;
+            }
+
+            footer h1.logo {
+                width: 100%;
+                height: auto;
+                font-size: 1.6rem;
+                padding: 8px;
+            }
+
+            .pulblic {
+                width: 100%;
+            }
+
+            .nav-footer {
+                padding: 10px 0;
+            }
+
+            .nav-footer ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-footer a {
+                font-size: 16px;
+            }
+
+            .social-app {
+                display: none;
+            }
+
+            .social-app i {
+                font-size: 30px;
+            }
+
+            footer p {
+                font-size: 14px;
+                margin-top: 10px;
+            }
+        }
+
+        /* Responsividade Footer entre 768px e 420px */
+        @media (max-width: 768px) and (min-width: 420px) {
+            footer {
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                padding: 15px 10px;
+                height: auto;
+                gap: 5px;
+                text-align: center;
+            }
+
+            footer h1.logo {
+                width: 150px;
+                height: auto;
+                font-size: 1.5rem;
+                padding: 10px;
+                margin: 0 auto;
+            }
+
+            .pulblic {
+                flex: 1 1 100%;
+                margin-bottom: 10px;
+            }
+
+            .pulblic p {
+                font-size: 14px;
+                margin: 5px 0;
+            }
+
+            .nav-footer {
+                flex: 1 1 100%;
+                padding: 10px 0;
+            }
+
+            .nav-footer ul {
+                flex-direction: row;
+                gap: 30px;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .nav-footer a {
+                font-size: 15px;
+            }
+
+            .social-app {
+                flex: 1 1 100%;
+                justify-content: center;
+                gap: 12px;
+                margin-bottom: 10px;
+            }
+
+            .social-app i {
+                font-size: 32px;
+            }
+        }
+
+        /* Responsividade Header para Tablet */
+        @media (max-width: 1094px) {
+            header {
+                padding: 0 20px;
+                display: flex;
+                gap: 15px;
+            }
+
+            .logo {
+                width: 150px;
+                height: 40px;
+                font-size: 1.8rem;
+            }
+
+            header .nav-header {
+                margin-left: 75px;
+            }
+
+            .creation,
+            .perfil {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Responsividade Container para 768px*/
+        @media (max-width: 1094px) {
+            .container {
+                padding: 40px;
+                margin: 100px 75px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr !important;
+                margin-top: 100px;
+                gap: 40px;
+            }
+
+            .box {
+                max-width: 600px;
+            }
+
+            .border01 img,
+            .border02 img {
+                max-width: 150px;
+            }
+
+            .border01 {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            .border02 {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+        }
+
+        /* Responsividade Container para telas entre 758px e 420px */
+        @media (max-width: 758px) and (min-width: 420px) {
+            .container {
+                padding: 30px;
+                margin: 80px auto;
+                width: 100%;
+                height: auto;
+            }
+
+            .container-profile {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                position: relative;
+            }
+
+            .profile {
+                position: relative;
+                width: 90px;
+                height: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .name-user {
+                margin-top: 30px;
+                font-size: 28px;
+            }
+
+            .cards {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .user-info,
+            .user-history {
+                width: 100%;
+                max-width: none;
+                padding: 20px;
+
+            }
+
+            .user-info {
+                height: auto;
+                flex: 1 1 auto;
+
+            }
+
+            .user-history {
+                height: auto;
+            }
+
+            .user-info h2,
+            .user-history h2 {
+                font-size: 22px;
+            }
+
+            .user-info h3,
+            .user-history h3 {
+                font-size: 18px;
+            }
+
+            .user-info p,
+            .user-history p {
+                font-size: 14px;
+                word-wrap: break-word;
+            }
+
+            .button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .edition {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+
+            .edit-image-button {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .img-user {
+                position: relative;
+                right: 15px;
+                width: 85px;
+                height: 85px;
+            }
+
+            .profile button {
+                position: absolute;
+                right: 15px;
+            }
+
+            .profile .fa-bookmark {
+                font-size: 100px;
+                top: 80px;
+            }
+
+            .user-history p {
+                max-width: 100%;
+            }
+        }
+
+        /* Responsividade para telas menores que 420px */
+        @media (max-width: 420px) {
+            .container {
+                padding: 20px;
+                margin: 40px auto;
+                width: 100%;
+            }
+
+            .container-profile {
+                gap: 25px;
+            }
+
+            .name-user {
+                font-size: 24px;
+            }
+
+            .cards {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .user-info,
+            .user-history {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .edition {
+                padding: 6px 15px;
+                font-size: 12px;
+            }
+
+            .img-user {
+                position: relative;
+                right: 15px;
+                width: 75px;
+                height: 75px;
+            }
+
+            .profile button {
+                position: absolute;
+                right: 15px;
+                width: 25px;
+                height: 30px;
+            }
+
+            .profile .fa-bookmark {
+                font-size: 80px;
+                top: 60px;
+            }
+
+            .user-info p,
+            .user-history p {
+                font-size: 13px;
+                word-wrap: break-word;
+            }
+
+            .user-info h2,
+            .user-history h2 {
+                font-size: 19px;
+            }
+
+            .user-info h3,
+            .user-history h3 {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 900px) {
+    .user-info {
+        max-width: 100%;
+        width: 100%;
+        padding: 20px 8px;
+    }
+}
+@media (max-width: 758px) {
+    .user-info {
+        width: 100%;
+        max-width: none;
+        padding: 16px 4px;
+        height: auto;
+    }
+}
+@media (max-width: 420px) {
+    .user-info {
+        width: 100%;
+        padding: 10px 2px;
+        height: auto;
+    }
+}
+
+/* Deixe os botões finais (excluir e sair) sempre um em cima do outro */
+.buttonsEditFinal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+    width: 100%;
+}
+
+.buttonsEditFinal button {
+    width: 100%;
+    min-width: 120px;
+    max-width: 300px;
+    align-self: center;
+}
+
+/* Inputs dos modais: um em cima do outro, cor de fundo e borda arredondada */
+#modal-edit-name input,
+#modal-edit-email input,
+#modal-edit-password input,
+#modal-delete-account input {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    margin-top: 0;
+    background-color: #f2f2f2;
+    border-radius: 80px;
+    border: 1px solid #ccc;
+    padding: 12px 16px;
+    box-sizing: border-box;
+}
+    </style>
+
+    <script src="Js/editUserModal.js"></script>
+    <script src="Js/acountManege.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="Js/notAllowed.js"></script>
+
+    <script>
+        async function carregarDadosUsuario() {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                alert('Token não encontrado!');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/user/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    alert('Erro ao buscar dados do usuário');
+                }
+
+                const userData = await response.json();
+                console.log(userData)
+
+                document.querySelector('.name-user').textContent = userData.name || '—';
+                document.getElementById('name').textContent = userData.name || '—';
+                document.getElementById('email').textContent = userData.email || '—';
+                document.getElementById('date').textContent = new Date(userData.createdAt).toLocaleDateString('pt-BR');
+                document.getElementById('password').textContent = '********';
+
+                if (userData.profilePic) {
+                    document.getElementById('profile-image').src = 'http://localhost:3000' + userData.profilePic;
+                }
+
+            } catch (error) {
+                alert('Erro ao carregar dados do usuário:', error);
+            }
+        }
+
+        // Chama direto
+        carregarDadosUsuario();
+    </script>
+
+    <script>
+        document.getElementById('save-profile-btn').addEventListener('click', async () => {
+            const currentPassword = document.getElementById('current-password').value.trim();
+            const newPassword = document.getElementById('edit-password').value.trim();
+
+            if (!currentPassword || !newPassword) {
+                alert('Preencha todos os campos de senha.');
+                return;
+            }
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Token não encontrado. Faça login novamente.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/user/password', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Senha atualizada com sucesso!');
+                    document.getElementById('edit-password').value = '';
+                    document.getElementById('current-password').value = '';
+                    // Aqui você pode fechar o modal se quiser:
+                    // document.getElementById('edit-profile-modal').style.display = 'none';
+                } else {
+                    alert(result.message || 'Erro ao atualizar a senha.');
+                }
+
+            } catch (error) {
+                console.error('Erro ao atualizar a senha:', error);
+                alert('Erro na comunicação com o servidor.');
+            }
+        });
+    </script>
+
+    <script>
+        async function loadTaskStats() {
+            const token = localStorage.getItem("token");
+            if (!token) return;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/user/profile', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) {
+                    console.error("Erro ao buscar dados do usuário:", response.statusText);
+                    return;
+                }
+
+                const userData = await response.json();
+                const stats = userData.stats;
+                if (!stats) {
+                    console.warn("Nenhum dado de stats para exibir no gráfico.");
+                    return;
+                }
+
+                const labels = ['Concluídas', 'Pendentes'];
+                const data = [stats.completed, stats.total - stats.completed];
+
+                const canvas = document.getElementById('taskStatsChart');
+                if (!canvas) {
+                    console.error("Elemento canvas do gráfico não encontrado.");
+                    return;
+                }
+                const ctx = canvas.getContext('2d');
+
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Tarefas',
+                            data: data,
+                            backgroundColor: ['#6381a8', '#d3d3d3'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Progresso das tarefas'
+                            },
+                            tooltip: {
+                                enabled: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const value = context.parsed;
+                                        const percent = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                                        return `${context.label}: ${value} (${percent}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Erro ao carregar o gráfico:", error);
+            }
+        }
+        document.addEventListener("DOMContentLoaded", loadTaskStats);
+    </script>
+
+    <script>
+        document.getElementById('edit-button').addEventListener('click', () => {
+            document.getElementById('image-input').click();
+        });
+
+        document.getElementById('image-input').addEventListener('change', async function () {
+            const file = this.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('profilePic', file);
+
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch('http://localhost:3000/api/user/profile-pic', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    // Atualiza a imagem na tela
+                    document.getElementById('profile-image').src = result.profilePicUrl;
+                    alert('Foto de perfil atualizada!');
+                } else {
+                    alert(result.message || 'Erro ao atualizar foto de perfil.');
+                }
+            } catch (error) {
+                alert('Erro ao enviar imagem.');
+            }
+        });
+    </script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Menu hamburguer responsivo
+    const menuToggle = document.getElementById('menu-toggle');
+    const navHeader = document.querySelector('.nav-header');
+    if (menuToggle && navHeader) {
+        menuToggle.addEventListener('click', function () {
+            navHeader.classList.toggle('active');
+        });
+    }
+
+    // Foto de perfil dinâmica
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+        try {
+            const user = JSON.parse(userStr);
+            if (user.profilePic) {
+                const img = document.getElementById('header-profile-image');
+                if (img) {
+                    img.src = user.profilePic.startsWith('http')
+                        ? user.profilePic
+                        : `http://localhost:3000${user.profilePic}`;
+                }
+            }
+        } catch (e) {
+            // Se der erro, não faz nada
+        }
+    }
+});
+</script>
+
+<script>
+function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+}
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+</script>
+
+<script>
+document.getElementById('edit-name-btn').onclick = () => openModal('modal-edit-name');
+document.getElementById('edit-email-btn').onclick = () => openModal('modal-edit-email');
+document.getElementById('edit-password-btn').onclick = () => openModal('modal-edit-password');
+document.getElementById('delete-account-btn').onclick = () => openModal('modal-delete-account');
+</script>
+
+<script>
+// Editar nome
+document.getElementById('save-edit-name').onclick = async () => {
+    const name = document.getElementById('input-edit-name').value.trim();
+    const password = document.getElementById('input-edit-name-password').value.trim();
+    const token = localStorage.getItem('token');
+    if (!name || !password) return alert('Preencha todos os campos.');
+    try {
+        const res = await fetch('http://localhost:3000/api/user/profile', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ name, password })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            document.querySelector('.name-user').textContent = name;
+            document.getElementById('name').textContent = name;
+            alert('Nome atualizado!');
+            closeModal('modal-edit-name');
+        } else {
+            alert(data.message || 'Erro ao atualizar nome.');
+        }
+    } catch (e) { alert('Erro ao atualizar nome.'); }
+};
+
+// Editar email
+document.getElementById('save-edit-email').onclick = async () => {
+    const email = document.getElementById('input-edit-email').value.trim();
+    const password = document.getElementById('input-edit-email-password').value.trim();
+    const name = document.getElementById('name').textContent.trim(); // pega o nome atual exibido
+    const token = localStorage.getItem('token');
+    if (!email || !password) return alert('Preencha todos os campos.');
+    try {
+        const res = await fetch('http://localhost:3000/api/user/profile', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ name, email, password }) // envia name também
+        });
+        const data = await res.json();
+        if (res.ok) {
+            document.getElementById('email').textContent = email;
+            alert('Email atualizado!');
+            closeModal('modal-edit-email');
+        } else {
+            alert(data.message || 'Erro ao atualizar email.');
+        }
+    } catch (e) { alert('Erro ao atualizar email.'); }
+};
+
+// Editar senha
+document.getElementById('save-edit-password').onclick = async () => {
+    const currentPassword = document.getElementById('input-current-password').value.trim();
+    const newPassword = document.getElementById('input-new-password').value.trim();
+    const token = localStorage.getItem('token');
+    if (!currentPassword || !newPassword) return alert('Preencha todos os campos.');
+    try {
+        const res = await fetch('http://localhost:3000/api/user/password', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ currentPassword, newPassword })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            alert('Senha atualizada!');
+            closeModal('modal-edit-password');
+        } else {
+            alert(data.message || 'Erro ao atualizar senha.');
+        }
+    } catch (e) { alert('Erro ao atualizar senha.'); }
+};
+</script>
+
+<script>
+document.getElementById('confirm-delete-account').onclick = async () => {
+    const pass1 = document.getElementById('input-delete-password1').value;
+    const pass2 = document.getElementById('input-delete-password2').value;
+    if (!pass1 || !pass2) return alert('Preencha os dois campos de senha.');
+    if (pass1 !== pass2) return alert('As senhas não coincidem.');
+    const token = localStorage.getItem('token');
+    try {
+        const res = await fetch('http://localhost:3000/api/user/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ password: pass1 })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            alert('Conta excluída com sucesso!');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        } else {
+            alert(data.message || 'Erro ao excluir conta.');
+        }
+    } catch (e) { alert('Erro ao excluir conta.'); }
+};
+</script>
+
+</body>
+
+ <script src="Js/photoLoad.js"></script>
+
+</html>
