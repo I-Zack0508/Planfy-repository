@@ -25,6 +25,8 @@ _______________________
 - path
 - fs
 
+(Extensao SQLite Viewer necessaria para visualizar o arquivo  dev.db)
+
 **Organização do projeto:**
 - Estrutura baseada no padrão MVC (Model-View-Controller) para separar regras de negócio, rotas e acesso a dados.
 
