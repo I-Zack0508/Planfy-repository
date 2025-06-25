@@ -40,13 +40,6 @@ exports.updateProfile = async (req, res) => {
   }
 }
 
-// exports.updatePassword = async (req, res) => {
-//   const { password } = req.body
-//   const hashed = await bcrypt.hash(password, 10)
-//   await prisma.user.update({ where: { id: req.userId }, data: { password: hashed } })
-//   res.json({ message: 'Senha atualizada' })
-// }
-
 exports.updatePassword = async (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
